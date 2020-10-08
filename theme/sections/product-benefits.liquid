@@ -1,0 +1,48 @@
+{% if product.metafields.benefits.title %}
+<div class="container main content">
+  <div class="sixteen columns page clearfix">
+
+    <div class="nine columns medium-down--one-whole">
+      <div class="block-image">
+        <img src="{{product.metafields.benefits.image}}">
+      </div>
+    </div>
+    <div class="seven columns medium-down--one-whole">
+      <div class="block-content">
+        <div class="block-header">
+          <h2 class="block-title">{{product.metafields.benefits.title}}</h2>
+          <div class="feature_divider"></div>
+        </div>
+        <div class="block-text">
+          {{product.metafields.benefits.text}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Benifits",
+  "class": "product-section benefits",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "text"
+    }
+  ]
+}
+{% endschema %}

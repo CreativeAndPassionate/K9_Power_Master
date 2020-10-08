@@ -1,0 +1,77 @@
+{% if product.metafields.comparison.title %}
+<div class="container main content">
+  <div class="sixteen columns page clearfix">
+
+    <div class="grid-carousel">
+      <div class="section-header">
+        <h2 class="title">{{ product.metafields.comparison.title }}</h2>
+      </div>
+      <div class="carousel equal-columns--clear" data-flickity='{ "watchCSS": true }'>
+        {% for item in product.metafields.comparison.items.data %}
+          <div class="carousel-cell one-third column">
+            <a href="{{ item.url }}">
+              <div class="item">
+                <div class="item-image">
+                  <img src="{{ item.image }}">
+                </div>
+                <div class="item-content">
+                  <h3 class="item-title">{{ item.title }}</h3>
+                  <div class="item-text">{{ item.text }}</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Comparison",
+  "class": "product-section comparison",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

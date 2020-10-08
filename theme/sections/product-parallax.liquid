@@ -1,0 +1,36 @@
+{% comment %}
+** Parallax background section for product pages **
+{% endcomment %}
+
+{% assign parallax-image = product.handle | append:'-parallax.png' %}
+
+{% comment %}
+{% if product.handle == 'carnivore-cookies' %}
+  {% assign parallax-text = 'Feed their inner wolf' %}
+{% elsif product.handle  == ' digest-forte' %}
+  {% assign parallax-text = 'Text for the Digest Forte page.' %}
+{% else %}
+  {% assign parallax-text = 'Error: parallax-text not defined in product-parallax theme file.' %}
+{% endif %}
+{% endcomment %}
+
+<section id="banner-{{id}}" class="banner full-width--full" style="max-width:1180px;margin:0 auto 30px auto;">
+  <div id="parallax-{{section.id}}"
+       class="parallax
+       full-width--true
+       lazyload
+       {{ settings.image_loading_style }}"
+       style="
+       height: 372px;
+       background-attachment: fixed;
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+       background-image: url('{{ parallax-image | file_img_url: '1024x' }}');">
+    <div class="position-center caption js-caption">
+      <div class="caption-content align-center" style="background-color: rgba(0, 0, 0, 0.6); padding: 30px; max-width: 100%">
+        <h2 class="headline" style="color:#c8d40d; margin: 0">Fueling Family Moments</h2>
+      </div>
+    </div>
+  </div>
+</section>

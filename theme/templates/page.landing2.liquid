@@ -1,0 +1,63 @@
+<style>
+.page-landing2 .container.main.content{padding-top:0px}
+.page-landing2 .container .caption-background-true.caption-transparency-true{background-color:rgba(255,255,255,1);}
+.page-landing2 .container .caption-background-true .headline {color:black; margin:0px;}
+.page-landing2 .featured-content-section {margin:10px auto 0; max-width:1100px;}
+.page-landing2 .featured-content-section .container{padding-bottom:0px;}
+.page-landing2 .feature-text p{margin-bottom:25px;}
+.page-landing2 .page-content-wrap {margin:0 auto 50px; font-size:18px;}
+.page-landing2 .text-columns-with-images-section {margin:30px auto 0;}
+.page-landing2 h3 {margin-bottom:5px;}
+.page-landing2 .featured-promotions-section{margin-bottom:30px;}
+.page-landing2 #product-button {text-align:center;}
+.page-landing2 .custom-html-section form .action_button {text-align:center; font-size:32px; height:80px; border-radius:15px; margin-bottom:50px;}
+.page-landing2 .nav, .mobile_nav, .top_bar--right {display:none !important;}
+.page-landing2 div.logo {width:100%; float:none;}
+.page-landing2 div.logo a {pointer-events: none; cursor: default;}
+.page-landing2 .caption {top:70%;}
+.page-landing2 .newsletter_section {display:none;}
+.page-landing2 .footer_menu {display:none;}
+.page-landing2 .footer_credits {border-top:1px solid white;}
+.page-landing2 .credits a{pointer-events: none; cursor: default;}
+.page-landing2 .social_icons {display:none !important;}
+.promo_banner {display:none !important;}
+  
+  @media only screen and (max-width: 480px) { .page-landing2 .page-content-wrap > p {text-align:left !important;}}
+  @media only screen and (max-width: 480px) { .page-landing2 .footer .footer_content > h6 > span {display:none;}}
+  @media only screen and (max-width: 480px) { .page-landing2 .footer .toggle_content {display: block;}}
+  @media only screen and (max-width: 480px) { .page-landing2 .footer .footer_content > h6 {text-align:center;}}  
+  @media only screen and (max-width: 480px) { .page-landing2 h3.regular_text {min-height:0px}
+  
+#banner-image-with-text-overlay2 > div.position-center.caption.js-caption > div > h1 {
+    color: #c4d600 !important;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important;
+}
+
+#banner-image-with-text-overlay2 > div.position-center.caption.js-caption {
+    position: absolute !important;
+    margin: 0px auto; !important
+    -ms-transform: translate(0, -50%) !important;
+    -webkit-transform: translate(0, -50%) !important;
+    transform: translate(0, -50%) !important;
+}
+
+</style>
+
+<a name="pagecontent" id="pagecontent"></a>
+
+{% section 'image-with-text-overlay2' %}
+
+{% section 'featured-text2' %}
+
+<div class="page-content-wrap">
+{% include 'page-multi-column', content: page.content %}
+</div>
+
+{% section 'custom-html2' %}
+
+{% section 'text-columns-with-images2' %}
+
+{% section 'featured-promotions2' %}
+
+{% section 'custom-html2' %}
+

@@ -1,0 +1,99 @@
+{% comment %}
+** FAQ page - custom view **
+- Page template
+- Uses blocks
+{% endcomment %}
+
+<div class="container main content">
+  <div class="sixteen columns page clearfix">
+    <div>
+      {% include 'page-multi-column', content: page.content %}
+    </div>
+  </div>
+  <div class="sixteen columns">
+    {% if section.blocks.size > 0 %}
+      <dl class="faqAccordion">
+        {% for block in section.blocks %}
+          {% if block.type == "heading" %}
+            {% if block.settings.heading != blank %}
+              <h2 class="title faq--heading">{{ block.settings.heading }}</h2>
+            {% endif %}
+          {% endif %}
+          {% if block.settings.title != blank %}
+            <dt><button type="button" aria-controls="panel-01" aria-expanded="true">{{ block.settings.title }}</button></dt>
+            <dd id="panel-01" aria-hidden="false">
+              {{ block.settings.subtitle }}
+            </dd>
+          {% endif %}
+        {% endfor %}
+      </dl>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  {% if section.settings.show_banner %}
+    .mobile_nav-fixed--true #pagecontent, .mobile_nav-fixed--false #pagecontent {
+      padding: 0;
+    }
+    @media only screen and (max-width: 479px) {
+      div.content {
+        padding-top: 0;
+      }
+    }
+  {% endif %}
+</style>
+
+{% schema %}
+
+{
+  "name": "Page | faq",
+  "class": "faq-section",
+  "blocks": [
+    {
+      "name": "Frequently Asked Question",
+      "type": "Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Answer",
+          "default": "<p>Include a helpful and informative answer to the frequently asked question here.</p>"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Include a helpful and informative answer to the frequently asked question here.</p>"
+        }
+      },
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Include a helpful and informative answer to the frequently asked question here.</p>"
+        }
+      },
+      {
+        "type": "Content",
+        "settings": {
+          "title": "Title",
+          "subtitle": "<p>Include a helpful and informative answer to the frequently asked question here.</p>"
+        }
+      }
+    ]
+  }
+}
+
+{% endschema %}

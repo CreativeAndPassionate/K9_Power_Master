@@ -1,0 +1,80 @@
+<div class="page-header">
+  <h1 class="title">{{ page.title }}</h1>
+  <div class="heading">{{ section.settings.heading }}</div>
+  <div class="anchor-links">
+    {% for block in section.blocks %}
+      {% assign anchor = block.settings.title | split: ':' | first %}
+      {% assign handle = anchor | handleize %}
+      <a class="action_button continue-button" href="#{{ handle }}">{{ anchor }}</a>
+    {% endfor %}
+  </div>
+</div>
+<div class="cards">
+{% for block in section.blocks %}
+  {% assign anchor = block.settings.title | split: ':' | first | handleize %}
+  <div class="card container {% if block.settings.reverse %} reverse {% endif %}" id="{{ anchor }}">
+    <Div class="card-header one-third column large-down--one-half">
+      
+      <img class="image" src="{{ block.settings.image | img_url: '500x' }}">
+    </div>
+    <Div class="card-content two-thirds column large-down--one-half">
+      <h3 class="title">{{ block.settings.title }}</h3>
+      <div class="text">{{ block.settings.text }}</div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Page | Getting Started",
+  "class": "getting-started-template",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "reverse",
+          "label": "Reverse"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

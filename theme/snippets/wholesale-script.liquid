@@ -1,0 +1,97 @@
+<script type="text/javascript" charset="utf-8">
+//<![CDATA[
+// Including jQuery conditionnally.
+if (typeof jQuery === 'undefined') {
+    document.write({{ "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" | script_tag | json }});
+	document.write('<script type="text/javascript">jQuery.noConflict();<\/script>');
+}
+//]]>
+</script>
+
+<script>
+  var length = {{ varcount }};
+  var regp = /[^0-9.-]+/g;
+  var formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  jQuery(document).ready(function($) {
+    var i;
+    for (i = 0; i < length; i++) {
+      updateChanges(i);
+    } 
+	$("#submit-table").click(function(e) {     
+		e.preventDefault();
+		var toAdd = new Array();
+        var qty ;
+		for(i=0; i < length; i++){
+        
+			toAdd.push({
+				variant_id: $("#variant-"+i).val(),        
+				quantity_id: $("#quantity-"+i).val() || 0
+			});
+		}
+		function moveAlong(){
+			if (toAdd.length) {
+				var request = toAdd.shift();
+				var tempId= request.variant_id;
+				var tempQty = request.quantity_id;
+				var params = {
+					type: 'POST',
+					url: '/cart/add.js',
+					data: 'quantity='+tempQty+'&id='+tempId,
+					dataType: 'json',
+					success: function(line_item) { 
+						console.log("success!");
+						moveAlong();
+
+					},
+					error: function() {
+						console.log("fail");
+						moveAlong();
+						
+					}
+				};
+				$.ajax(params);
+			}
+			else {				
+				document.location.href = '/cart';
+			}  
+		};
+		moveAlong();
+	});
+});
+  
+  function updateChanges(i) {
+  var varPrice = document.getElementById("wsprice-" + i).innerText;
+  var inputVal = document.getElementById("quantity-" + i).value;
+  var maxquantity = document.getElementById("quantity-" + i).max;
+  if (inputVal == 0) {
+    document.getElementById("wstotalprice-" + i).innerHTML = "$0.00";
+  } else if (Number(inputVal) > Number(maxquantity)) {
+    alert("Quantity greater than available inventory. Please revise quantity.");
+    document.getElementById("quantity-" + i).value = 0;
+    updateChanges(i);
+    document.getElementById("quantity-" + i).focus();
+  } else if (Number(inputVal) < 0) {
+    alert("Quantity cannot be less than zero.");
+    document.getElementById("quantity-" + i).value = 0;
+    updateChanges(i);
+    document.getElementById("quantity-" + i).focus();
+  }
+    else {
+    var totalPrice = parseFloat(varPrice.replace(regp, '')) * inputVal;
+    document.getElementById("wstotalprice-" + i).innerHTML = formatter.format(totalPrice) + " USD";
+  }
+    updateGrandTotal();
+}
+  function updateGrandTotal() {
+    var grandTotal = 0;
+    for (i = 0; i < length; i++) {
+      totalPrice = parseFloat((document.getElementById("wstotalprice-" + i).innerHTML).replace(regp, ''));
+      grandTotal += totalPrice;
+    }
+    document.getElementById("wsgrandtotal").innerHTML = formatter.format(grandTotal) + " USD";
+  }
+</script>

@@ -1,0 +1,75 @@
+{% if product.metafields.howtouse.title %}
+<div class="container main content">
+  <div class="sixteen columns page clearfix">
+
+    <div class="grid-carousel">
+      <div class="section-header">
+        <h2 class="title">{{ product.metafields.howtouse.title }}</h2>
+      </div>
+      <div class="carousel equal-columns--clear" data-flickity='{ "watchCSS": true }'>
+        {% for item in product.metafields.howtouse.items.data %}
+          <div class="carousel-cell one-third column">
+            <div class="item  {% if section.settings.horizontal_item %} horizontal {% endif %}">
+              <div class="item-image">
+                <img src="{{ item.image }}">
+              </div>
+              <div class="item-content">
+                <h3 class="item-title">{{ item.title }}</h3>
+                <div class="item-text">{{ item.text }}</div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "How To Use",
+  "class": "product-section how-to-use",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "checkbox",
+      "id": "horizontal_item",
+      "label": "Horizontal Item"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

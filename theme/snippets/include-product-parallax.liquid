@@ -1,0 +1,55 @@
+{% if type == 'block' %}
+  {% assign image = block.settings.image %}
+  {% assign wide_display = block.settings.wide_display %}
+  {% assign parallax_text = block.settings.parallax_text %}
+  {% assign text_align = block.settings.text_align %}
+{% else %}
+  {% assign image = section.settings.image %}
+  {% assign wide_display = section.settings.wide_display %}
+  {% assign parallax_text = section.settings.parallax_text %}
+  {% assign text_align = section.settings.text_align %}
+{% endif %}
+
+{% if section.settings.wide_display == false %}
+<div class="container">
+  <div class="sixteen columns">
+{% endif %}
+    
+  <div id="parallax-{{section.id}}"
+       class="parallax
+       full-width--{{ section.settings.wide_display }}
+       lazyload
+       {{ settings.image_loading_style }}"
+       {% if image != nil %}
+       data-bgset="  {{ image | img_url: '2048x' }} 2048w,
+                     {{ image | img_url: '1600x' }} 1600w,
+                     {{ image | img_url: '1200x' }} 1200w,
+                     {{ image | img_url: '1000x' }} 1000w,
+                     {{ image | img_url: '800x' }} 800w,
+                     {{ image | img_url: '600x' }} 600w,
+                     {{ image | img_url: '400x' }} 400w"
+       data-sizes="100vw"
+       {% endif %}>
+        <div class="">
+            {% assign image = section.settings.image %}
+            {% if image != nil %}
+                {% include 'image-element', image: image, alt: image.alt, stretch_width: true, additional_classes: 'parallax-image' %}
+            {% endif %}
+            <div class="caption position-center js-caption">
+                <div class="caption-content parallax-text {% if image != nil %}parallax-text-mobile{% endif %} align-{{block.settings.text_align}}">
+                  {% if block.settings.parallax_text != blank %}
+                    <p class="headline">
+                      {{ section.settings.parallax_text }}
+                    </p>
+                    <div class="feature_divider"></div>
+                  {% endif %}
+                </div>
+              </div>
+
+        </div>
+  </div>
+
+{% if section.settings.wide_display == false %}
+  </div>
+</div>
+{% endif %}

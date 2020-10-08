@@ -1,0 +1,18 @@
+<div class="container main content product-name--{{ product.handle }}">
+  <div class="product clearfix">
+    <div class="sixteen columns product__container">
+      <div class="product-{{ product.id }}" data-free-text="{{ settings.free_price_text }}">
+
+        {% comment %} Pasted below section from product template {% endcomment %}
+        
+        <div data-product-recommendations-container></div>
+
+        <span id="product-reviews" style="display:block;height:50px;margin-top:-50px;visibility:hidden"></span>
+        <div class="shopify-reviews reviewsVisibility--{{settings.enable_shopify_review_comments}}">
+          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+{% comment %}
+** FAQ page - custom view **
+- Page template
+- Uses blocks
+{% endcomment %}
+
+{% if product.metafields.faq.title %}
+<div class="container main content">
+  <div class="sixteen columns page clearfix">
+    <div class="section-header">
+      <h2 class="title">{{ product.metafields.faq.title }}</h2>
+    </div>
+  </div>
+  <div class="sixteen columns">
+    {% if product.metafields.faq.items.data.size > 0 %}
+      <dl class="faqAccordion">
+        {% for item in product.metafields.faq.items.data %}
+          {% if item.title != blank %}
+            <dt><button type="button" aria-controls="panel-01" aria-expanded="true">{{ item.title }}</button></dt>
+            <dd id="panel-01" aria-hidden="false">
+              {{ item.text }}
+            </dd>
+          {% endif %}
+        {% endfor %}
+      </dl>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+
+{
+  "name": "FAQ",
+  "class": "product-section faq-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Answer"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

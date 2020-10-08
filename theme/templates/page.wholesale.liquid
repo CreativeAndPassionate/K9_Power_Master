@@ -1,0 +1,140 @@
+{% assign varcount = 0 %}
+<a name="pagecontent" id="pagecontent"></a>
+ 
+<div class="sixteen columns page clearfix">
+   <h1>
+      {{ page.title }}
+   </h1>
+   <div class="feature_divider"></div>
+   <div>
+      {% include 'page-multi-column', content: page.content %}
+   </div>
+
+{% if customer %}
+  {% if customer.tags contains 'Wholesale' %}<h3>Partner Program</h3><p>Welcome, and thanks again for helping us grow the K9 Power family. We value your partnership, and we look forward to continued business together. 
+  Please place your order using our customized Wholesale Order Form below. </p>
+<p>All prices reflect our current 2020 Wholesale Pricing Sheet. Please reach out to <a href="mailto:support@k9power.com" title="mailto:support@k9power.com">support@k9power.com</a> with any questions you may have.</p>
+  
+   <form>
+     <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+   {% for product in collections.all.products %}
+    {% if product.tags contains 'Wholesale' %}
+   <div class="list-collections clearfix equal-columns--clear equal-columns--outside-trim">
+      <div class="
+         {% if collections_per_row == 2 %}
+         eight columns
+         {% elsif collections_per_row == 3 %}
+         one-third column
+         {% else %}
+         four columns
+         {% endif %}
+         thumbnail {% cycle 'even', 'odd' %}
+         {% if settings.mobile_products_per_row == '1' %}
+         medium-down--one-half
+         small-down--one-whole
+         {% else %}
+         medium-down--one-half
+         small-down--one-half
+         {% endif %}">
+         <div class="product-wrap">
+            <div class="image__container">
+              <a target="_blank" href="{{shop.url}}{{product.url}}"><img style="max-height:160px;" src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title | escape }}" /></a>
+            </div>
+         </div>
+      </div>
+     <h6><a target="_blank" href="{{shop.url}}{{product.url}}">{{ product.title }}</a></h6>
+     
+     <div class="ws-table">
+       <div class="ws-table-header">
+         <div class="ws-table-header-cell"><label>SKU</label></div>
+         <div class="ws-table-header-cell"><label>Size</label></div>
+         <div class="ws-table-header-cell"><label>Unit Price</label></div>
+         <div class="ws-table-header-cell"><label>Available</label></div>
+         <div class="ws-table-header-cell"><label>Order Quantity</label></div>
+         <div class="ws-table-header-cell"><label>Price</label></div>
+       </div>
+       <div class="ws-table-body">
+       {% for variant in product.variants %}
+          <div class="ws-table-row">
+            <div class="ws-table-body-cell">{{ variant.sku }}</div>
+            <div class="ws-table-body-cell">{{ variant.option1 }}</div>
+            <div id="wsprice-{{ varcount }}" class="ws-table-body-cell">{{ variant.price | money }}</div>
+            <div class="ws-table-body-cell">{{ variant.inventory_quantity }}</div>
+            <div class="ws-table-body-cell">
+              <div class="purchase-details__quantity product-quantity-box-ws">
+              <input type="hidden" value="{{ variant.id }}" id="variant-{{ varcount }}" />
+              <input onfocus="this.select()" onkeyup="updateChanges({{ varcount }})" style="min-height:0px; height: 24px; width: 72px;" type="number" min="0" size="2" class="quantity" name="quantity" id="quantity-{{ varcount }}" value="0" {% if settings.limit_quantity and variant.inventory_management != blank and variant.inventory_policy == "deny" %}max="{{ variant.inventory_quantity }}"{% endif %} />
+              </div>
+            </div>
+            <div id="wstotalprice-{{ varcount }}" class="ws-table-body-cell"></div>
+          </div>
+       {% assign varcount = varcount | plus:1 %}
+       {% endfor %}
+       </div>
+     </div>
+  </div>
+   {% endif %}
+  {% endfor %}   <div class="feature_divider"></div>
+    <div class="list-collections clearfix equal-columns--clear equal-columns--outside-trim">
+      <div class="
+         {% if collections_per_row == 2 %}
+         eight columns
+         {% elsif collections_per_row == 3 %}
+         one-third column
+         {% else %}
+         four columns
+         {% endif %}
+         thumbnail {% cycle 'even', 'odd' %}
+         {% if settings.mobile_products_per_row == '1' %}
+         medium-down--one-half
+         small-down--one-whole
+         {% else %}
+         medium-down--one-half
+         small-down--one-half
+         {% endif %}">
+         <div class="product-wrap">
+            <div class="image__container">
+              
+            </div>
+         </div>
+      </div>
+      <div class="ws-table">
+       <div class="ws-table-header">
+         <div class="ws-table-header-cell"></div>
+         <div class="ws-table-header-cell"></div>
+         <div class="ws-table-header-cell"></div>
+         <div class="ws-table-header-cell"></div>
+         <div class="ws-table-header-cell"></div>
+         <div class="ws-table-header-cell"><label>Subtotal</label></div>
+       </div>
+       <div class="ws-table-body">
+          <div class="ws-table-row">
+            <div class="ws-table-body-cell"></div>
+            <div class="ws-table-body-cell"></div>
+            <div class="ws-table-body-cell"></div>
+            <div class="ws-table-body-cell"></div>
+            <div class="ws-table-body-cell"></div>
+            <div id="wsgrandtotal" class="ws-table-body-cell"></div>
+          </div>
+       </div>
+     </div>
+         <div style="float:right; margin-top:10px; width:250px;" class="purchase-details__buttons-ws purchase-details__spb--{{ show_payment_button }}">
+            <button style="width:250px;" id="submit-table" type="submit" name="add" class="action_button add_to_cart-ws " data-label={{ add_to_cart_label | json }}>
+            <span class="text">{{ 'products.product.add_to_cart' | t }}</span>
+            <svg x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" class="checkmark">
+               <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
+            </svg>
+            </button>
+         </div>
+     </div>
+     
+  </form>
+  
+  {% else %}<h3>Wholesale Account Not Found</h3><p>Oops, it looks like you are not yet an approved K9 Power wholesale partner. If you have already applied and believe you have received this message in error, please email <a href="mailto:support@k9power.com" title="mailto:support@k9power.com">support@k9power.com</a> so we can review our records and check for and possible errors. Thank you!</p>
+  {% endif %}
+{% else %}<h3>Welcome!</h3><p>We appreciate your interest in the K9 Power Wholesale Program. Please take some time to complete the following application. We look forward to reviewing your info and (paws crossed) having you join our wholesale team!</p>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd1B08TESFTQqp3ApKeuhxz0B-rK5coo_shJyVqkJDBzLvnRA/viewform?embedded=true" width="100%" height="3055" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+{% endif %}
+  
+</div>
+

@@ -1,0 +1,24 @@
+{
+  "name": "k9-power",
+  "version": "1.0.0",
+  "description": "K9 Power Shopify theme development",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "shopify-themekit deploy",
+    "download": "shopify-themekit download",
+    "get": "shopify-themekit get",
+    "open": "shopify-themekit open",
+    "remove": "shopify-themekit remove",
+    "watch": "shopify-themekit watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://thomhoor@bitbucket.org/thomhoor/k9-power.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/thomhoor/k9-power#readme",
+  "devDependencies": {
+    "@shopify/themekit": "^1.1.4"
+  }
+}
